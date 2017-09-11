@@ -8,9 +8,13 @@ class EmployeeEditor extends Component {
       originalEmployee: null,
       notModified: true
     };
+    this.cancel = this.cancel.bind(this);
+    this.save = this.save.bind(this);
   }
 
-  // componentWillReceiveProps
+  componentWillReceiveProps(props) {
+    this.setState({ employee: Object.assign({}, props.selected), originalEmployee: props.selected });
+  }
 
   handleChange(prop, val) {
     if ( this.state.notModified ) {
@@ -26,8 +30,8 @@ class EmployeeEditor extends Component {
     this.state.originalEmployee.updateName(this.state.employee.name);
     this.state.originalEmployee.updatePhone(this.state.employee.phone);
     this.state.originalEmployee.updateTitle(this.state.employee.title);
-    this.setState({ notModified: true });
     this.props.refreshList();
+    this.setState({ notModified: true });
   }
 
   cancel() {
